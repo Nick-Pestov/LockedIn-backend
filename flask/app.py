@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request, render_template_string
+import cohere_chat as cc
 
 app = Flask(__name__)
 
@@ -44,6 +45,14 @@ def delete_task(index):
     if index < len(tasks):
         tasks.pop(index)
     return home()
+
+@app.route("/respond", methods=['GET'])
+def cohere_respond():
+    message = request.args.get('message')
+    response = cc.repond(message)
+    
+    return jsonify({"response": response})
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
