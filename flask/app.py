@@ -53,6 +53,10 @@ def cohere_respond():
     
     return jsonify({"response": response})
 
+@app.route("/get_background", methods=['GET'])
+def get_background():
+    pdf_name = request.args.get('pdf_name')
+    return {}
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
