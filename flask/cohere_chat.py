@@ -14,10 +14,18 @@ co = cohere.Client(client)
 def preprocess(message):
     return modifier + message
 
-def respond(message):
+def respond(message, textbook_content):
     if not message: return "Please enter a message."
 
-    message = preprocess(message)
+    chat_history.append({
+        "user_name": "User",
+        "text": message
+    })
+
+    if not textbook_content:
+        message = preprocess(message)
+    else:
+        message = preprocess(message + " TEXTBOOK: " + textbook_content)
 
     # Get the response from the assistant
     response = co.chat(
@@ -28,10 +36,6 @@ def respond(message):
     ).text
 
     # Append the user and assistant messages to the chat history
-    chat_history.append({
-        "user_name": "User",
-        "text": message
-    })
 
     chat_history.append({
         "user_name": "Assistant",

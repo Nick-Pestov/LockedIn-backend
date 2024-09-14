@@ -49,7 +49,8 @@ def delete_task(index):
 @app.route("/respond", methods=['GET'])
 def cohere_respond():
     message = request.args.get('message')
-    response = cc.respond(message)
+    textbook_content = request.args.get('textbook_content')
+    response = cc.respond(message, textbook_content)
     
     return jsonify({"response": response})
 
