@@ -49,7 +49,7 @@ def delete_task(index):
 @app.route("/respond", methods=['GET'])
 def cohere_respond():
     message = request.args.get('message')
-    response = cc.repond(message)
+    response = cc.respond(message)
     
     return jsonify({"response": response})
 
@@ -59,4 +59,4 @@ def get_background():
     return {}
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0', port=8000)
