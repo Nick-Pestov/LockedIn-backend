@@ -85,7 +85,7 @@ def calculate_accuracy(dataloader, model):
     accuracy = correct / total
     return accuracy
 
-num_epochs = 6
+num_epochs = 4
 for epoch in range(num_epochs):
     model.train()
     for texts, labels in dataloader:

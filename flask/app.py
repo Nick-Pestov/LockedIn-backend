@@ -58,8 +58,8 @@ def cohere_respond():
 @app.route("/get-background", methods=['GET'])
 def get_background():
     pdf_content = request.args.get('pdf_content')
-    background_label = pr.predict_long_text(pdf_content).lower()
+    background_label = pr.predict_text(pdf_content).lower()
     return jsonify({"background_label": background_label})
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=8000)

@@ -52,7 +52,7 @@ def preprocess_text(text, tokenizer, vocab):
     text_tensor = torch.tensor([vocab[token] for token in tokens], dtype=torch.long).unsqueeze(0)  # Add batch dimension
     return text_tensor
 
-def predict_long_text(text, chunk_size=100):
+def predict_long_text(text, chunk_size=250):
     tokenizer = get_tokenizer('basic_english')
 
     # Split the text into chunks
@@ -77,4 +77,13 @@ def predict_long_text(text, chunk_size=100):
     final_prediction = np.random.choice(most_common_labels)
     
     predicted_label = label_encoder.inverse_transform([final_prediction])[0]
+    return predicted_label
+
+def predict_text(text):
+    tokenizer = get_tokenizer('basic_english')
+    text_tensor = preprocess_text(text, tokenizer, vocab)
+    with torch.no_grad():
+        output = model(text_tensor)
+        _, predicted = torch.max(output, 1)
+    predicted_label = label_encoder.inverse_transform([predicted.item()])[0]
     return predicted_label
