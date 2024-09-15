@@ -1,1 +1,5 @@
 **.env
+**data.csv
+**label_encoder.pth
+**model.pth
+**vocab.pth

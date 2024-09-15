@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request, render_template_string
 import cohere_chat as cc
+import predictor as pr
 
 app = Flask(__name__)
 
@@ -54,10 +55,11 @@ def cohere_respond():
     
     return jsonify({"response": response})
 
-@app.route("/get_background", methods=['GET'])
+@app.route("/get-background", methods=['GET'])
 def get_background():
-    pdf_name = request.args.get('pdf_name')
-    return {}
+    pdf_content = request.args.get('pdf_content')
+    background_label = pr.predict_long_text(pdf_content)
+    return jsonify({"background_label": background_label})
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8000)
